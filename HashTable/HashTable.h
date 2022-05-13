@@ -1,5 +1,4 @@
 #include "../SList/SList.h"
-#include "../Counter/Counter.h"
 
 
 class HashTable {

@@ -33,11 +33,10 @@ char **generateStringArray(int count, int minLength, int spread) {
     return stringArray;
 }
 
-
 int main() {
     init();
 
-    int stringCount = 6500;
+    int stringCount = 6000;
     HashTable hashTable(6113);
     char **initialArray = generateStringArray(stringCount, 4, 3);
 
