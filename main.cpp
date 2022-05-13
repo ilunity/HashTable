@@ -1,6 +1,7 @@
 #include <iostream>
 #include "HashTable/HashTable.h"
 #include <time.h>
+#include <cmath>
 
 using namespace std;
 
@@ -10,11 +11,12 @@ void init() {
     system("chcp 65001");
 }
 
-char **generateStringArray(int count, int minLength, int spread) {
+char **generateStringArray(int count, int minLength, int spread, float coincidentProbability) {
     char **stringArray = new char *[count];
+    coincidentProbability = round(coincidentProbability * 10);
 
     for (int i = 0; i < count; ++i) {
-        if (rand() % 10 < 1 && i != 0) {
+        if (rand() % 10 < coincidentProbability && i != 0) {
             stringArray[i] = stringArray[rand() % i];
             continue;
         }
@@ -36,9 +38,9 @@ char **generateStringArray(int count, int minLength, int spread) {
 int main() {
     init();
 
-    int stringCount = 6000;
-    HashTable hashTable(6113);
-    char **initialArray = generateStringArray(stringCount, 4, 3);
+    int stringCount = 2000;
+    HashTable hashTable(2333);
+    char **initialArray = generateStringArray(stringCount, 3, 1, 0.3);
 
     for (int i = 0; i < stringCount; ++i) {
         hashTable.push(initialArray[i]);
@@ -49,9 +51,7 @@ int main() {
     SList *fullList = hashTable.getFullList();
     cout << "Полный список строк: " << *fullList << endl;
 
-    int comparisonNumber = 0;
-    SList *uniqueList = hashTable.getUniqueList(comparisonNumber);
-    cout << "Только уникальные строки: " << *uniqueList << endl;
+    int comparisonNumber = hashTable.calculateComparisons();
     cout << "Количество сравнений: " << comparisonNumber << endl;
-    cout << "Количество уникальных строк: " << (*uniqueList).getLength() << endl;
+    cout << "Количество уникальных строк: " << (*fullList).getLength() << endl;
 }
