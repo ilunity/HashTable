@@ -24,7 +24,7 @@ public:
 
     void connect(SList &list);
 
-    bool include(char *str, SListElem *initPointer);
+    bool include(char *str, SListElem *initPointer = nullptr);
 
     int getComparisonNumber() const;
 

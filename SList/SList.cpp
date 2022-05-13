@@ -69,10 +69,11 @@ void SList::connect(SList &list) {
     endPointer = list.endPointer;
 }
 
-bool SList::include(char *str, SListElem *initPointer = nullptr) {
+bool SList::include(char *str, SListElem *initPointer) {
     SListElem *ptr;
     if (initPointer == nullptr) {
         ptr = beginPointer;
+        if (beginPointer == nullptr) return false;
     } else {
         ptr = initPointer;
     }
