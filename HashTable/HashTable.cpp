@@ -26,7 +26,9 @@ int HashTable::hashFunction(char *string) const {
 void HashTable::push(char *string) {
     int index = hashFunction(string);
 
-    stringListArray[index].push(string);
+    if (!stringListArray[index].include(string)) {
+        stringListArray[index].push(string);
+    }
 }
 
 SList *HashTable::getFullList() {
@@ -39,22 +41,19 @@ SList *HashTable::getFullList() {
     return fullList;
 }
 
-SList *HashTable::getUniqueList(int &comparisonNumber) {
-    SList *uniqueList = new SList;
-    comparisonNumber = 0;
-
-    for (int i = 0; i < arrayLength; ++i) {
-        (*uniqueList).connect(*(stringListArray[i].normalizeCopy()));
-        comparisonNumber += stringListArray[i].getComparisonNumber();
-    }
-
-    return uniqueList;
-}
-
 ostream &operator<<(ostream &stream, HashTable &obj) {
     for (int i = 0; i < obj.arrayLength; ++i) {
         stream << i << ": " << obj.stringListArray[i] << endl;
     }
 
     return stream;
+}
+
+int HashTable::calculateComparisons() {
+    int comparisonNumber = 0;
+    for (int i = 0; i < arrayLength; ++i) {
+        comparisonNumber += stringListArray[i].getComparisonNumber();
+    }
+
+    return comparisonNumber;
 }
