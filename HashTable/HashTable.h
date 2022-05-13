@@ -17,5 +17,5 @@ public:
 
     friend ostream &operator<<(ostream &stream, HashTable &obj);
 
-    SList *getUniqueList(int &comparisonNumber);
+    int calculateComparisons();
 };
